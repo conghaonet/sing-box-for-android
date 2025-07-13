@@ -9,3 +9,5 @@
 .cxx
 local.properties
 /service-account-credentials.json
+/app/*.keystore
+/app/*.jks
