@@ -12,11 +12,6 @@ android {
 
     ndkVersion "28.0.13004108"
 
-    def ndkPathFromEnv = System.getenv("ANDROID_NDK_HOME")
-    if (ndkPathFromEnv != null) {
-        ndkPath ndkPathFromEnv
-    }
-
     ksp {
         arg("room.incremental", "true")
         arg("room.schemaLocation", "$projectDir/schemas")
@@ -102,6 +97,7 @@ android {
 
 dependencies {
     implementation(fileTree("libs"))
+    implementation 'com.github.singbox-android:libbox:1.11.15'
 
     implementation "androidx.core:core-ktx:1.16.0"
     implementation "androidx.appcompat:appcompat:1.7.1"
