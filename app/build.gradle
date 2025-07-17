@@ -26,25 +26,10 @@ android {
         setProperty("archivesBaseName", "SFA-" + versionName)
     }
 
-    signingConfigs {
-        release {
-            storeFile file("release.keystore")
-            storePassword getProps("KEYSTORE_PASS")
-            keyAlias getProps("ALIAS_NAME")
-            keyPassword getProps("ALIAS_PASS")
-        }
-    }
-
     buildTypes {
-        debug {
-            if (getProps("KEYSTORE_PASS") != "") {
-                signingConfig signingConfigs.release
-            }
-        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
             vcsInfo.include false
         }
     }
@@ -53,11 +38,13 @@ android {
         includeInApk = false
     }
 
-    flavorDimensions "vendor"
+    flavorDimensions "distribution"
     productFlavors {
         play {
+            dimension "distribution"
         }
         other {
+            dimension "distribution"
         }
     }
 
@@ -79,20 +66,11 @@ android {
     }
 
     buildFeatures {
+        buildConfig true
         viewBinding true
         aidl true
     }
 
-    applicationVariants.configureEach { variant ->
-        variant.outputs.configureEach {
-            outputFileName = (outputFileName as String).replace("-release", "")
-            outputFileName = (outputFileName as String).replace("-play", "")
-            outputFileName = (outputFileName as String).replace("-other", "-foss")
-        }
-    }
-    buildFeatures {
-        buildConfig true
-    }
 }
 
 dependencies {
@@ -144,14 +122,6 @@ if (playCredentialsJSON.exists()) {
         }
     }
 }
-
-/*
-tasks.withType(KotlinCompile.class).configureEach {
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-}
-*/
 
 def getProps(String propName) {
     def propsInEnv = System.getenv("LOCAL_PROPERTIES")
