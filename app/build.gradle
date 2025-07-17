@@ -42,6 +42,7 @@ android {
     productFlavors {
         play {
             dimension "distribution"
+            applicationIdSuffix ".play"
         }
         other {
             dimension "distribution"
