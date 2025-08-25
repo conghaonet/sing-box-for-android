@@ -130,6 +130,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     }
 
     private fun loopShowDeprecatedNotes(notes: DeprecatedNoteIterator) {
+        // TODO: 临时屏蔽 “弃用警告” 的弹窗
+        return
         if (notes.hasNext()) {
             val note = notes.next()
             val builder = MaterialAlertDialogBuilder(requireContext())
