@@ -9,6 +9,7 @@ import java.util.Locale
 class HTTPClient : Closeable {
 
     companion object {
+        // userAgent示例：SFA/1.12.2 (552; sing-box 1.12.3; language zh_Hans_CN)
         val userAgent by lazy {
             var userAgent = "SFA/"
             userAgent += BuildConfig.VERSION_NAME
